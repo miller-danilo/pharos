@@ -1,0 +1,8 @@
+**/*.dockerfile
+**/*.Dockerfile
+**/bin/
+**/obj/
+**/out/
+.git/
+.vs/
+.vscode/

@@ -1,0 +1,676 @@
+{
+  "Pharos.Core.dll": {
+    "C:\\work\\coding\\pharos\\backend\\Pharos.Core\\Services\\GeminiService.cs": {
+      "Pharos.Core.Services.GeminiService": {
+        "System.Void Pharos.Core.Services.GeminiService::.ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "21": 5,
+            "23": 5,
+            "24": 5,
+            "26": 5,
+            "27": 5
+          },
+          "Branches": [
+            {
+              "Line": 24,
+              "Offset": 26,
+              "EndOffset": 28,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 40,
+              "EndOffset": 42,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 24,
+              "Offset": 26,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 5
+            },
+            {
+              "Line": 24,
+              "Offset": 40,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 26,
+              "Offset": 66,
+              "EndOffset": 68,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 3
+            },
+            {
+              "Line": 26,
+              "Offset": 66,
+              "EndOffset": 74,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 2
+            }
+          ]
+        }
+      },
+      "Pharos.Core.Services.GeminiService/GeminiResponse": {
+        "Pharos.Core.Services.GeminiService/Candidate[] Pharos.Core.Services.GeminiService/GeminiResponse::get_Candidates()": {
+          "Lines": {
+            "183": 11
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.GeminiService/Candidate": {
+        "Pharos.Core.Services.GeminiService/Content Pharos.Core.Services.GeminiService/Candidate::get_Content()": {
+          "Lines": {
+            "189": 4
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.GeminiService/Content": {
+        "Pharos.Core.Services.GeminiService/Part[] Pharos.Core.Services.GeminiService/Content::get_Parts()": {
+          "Lines": {
+            "195": 4
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.GeminiService/Part": {
+        "System.String Pharos.Core.Services.GeminiService/Part::get_Text()": {
+          "Lines": {
+            "201": 4
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.GeminiService/<AnalyzeJobAsync>d__4": {
+        "System.Void Pharos.Core.Services.GeminiService/<AnalyzeJobAsync>d__4::MoveNext()": {
+          "Lines": {
+            "31": 3,
+            "33": 1,
+            "36": 2,
+            "38": 2,
+            "40": 2,
+            "42": 0,
+            "43": 0,
+            "44": 0,
+            "45": 0,
+            "46": 0,
+            "47": 0,
+            "48": 0,
+            "49": 0,
+            "52": 2,
+            "54": 2,
+            "57": 2,
+            "58": 2,
+            "59": 2,
+            "60": 2,
+            "61": 2,
+            "62": 2,
+            "63": 2,
+            "64": 2,
+            "65": 2,
+            "66": 2,
+            "67": 2,
+            "68": 2,
+            "69": 2,
+            "70": 2,
+            "71": 2,
+            "72": 2,
+            "73": 2,
+            "74": 2,
+            "75": 2,
+            "76": 2,
+            "78": 2,
+            "80": 2,
+            "81": 2,
+            "82": 2,
+            "83": 2,
+            "84": 2,
+            "85": 2,
+            "86": 2,
+            "87": 2,
+            "88": 2,
+            "89": 2,
+            "90": 2,
+            "91": 2,
+            "93": 2,
+            "94": 2,
+            "96": 1,
+            "97": 1,
+            "100": 1,
+            "101": 1,
+            "102": 1,
+            "103": 1,
+            "105": 1,
+            "107": 0,
+            "110": 1,
+            "111": 1,
+            "112": 1,
+            "113": 1,
+            "114": 1,
+            "115": 1,
+            "116": 1
+          },
+          "Branches": [
+            {
+              "Line": 31,
+              "Offset": 43,
+              "EndOffset": 45,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 31,
+              "Offset": 43,
+              "EndOffset": 56,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 40,
+              "Offset": 97,
+              "EndOffset": 99,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 40,
+              "Offset": 110,
+              "EndOffset": 112,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 40,
+              "Offset": 97,
+              "EndOffset": 146,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 2
+            },
+            {
+              "Line": 40,
+              "Offset": 110,
+              "EndOffset": 146,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 2
+            },
+            {
+              "Line": 52,
+              "Offset": 157,
+              "EndOffset": 159,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 2
+            },
+            {
+              "Line": 52,
+              "Offset": 157,
+              "EndOffset": 177,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 2
+            },
+            {
+              "Line": 94,
+              "Offset": 379,
+              "EndOffset": 384,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 1
+            },
+            {
+              "Line": 94,
+              "Offset": 379,
+              "EndOffset": 564,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 682,
+              "EndOffset": 684,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 682,
+              "EndOffset": 687,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 694,
+              "EndOffset": 696,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 694,
+              "EndOffset": 706,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 704,
+              "EndOffset": 706,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 704,
+              "EndOffset": 709,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 719,
+              "EndOffset": 721,
+              "Path": 0,
+              "Ordinal": 16,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 719,
+              "EndOffset": 725,
+              "Path": 1,
+              "Ordinal": 17,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 731,
+              "EndOffset": 733,
+              "Path": 0,
+              "Ordinal": 18,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 731,
+              "EndOffset": 737,
+              "Path": 1,
+              "Ordinal": 19,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 743,
+              "EndOffset": 745,
+              "Path": 0,
+              "Ordinal": 20,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 743,
+              "EndOffset": 749,
+              "Path": 1,
+              "Ordinal": 21,
+              "Hits": 1
+            },
+            {
+              "Line": 101,
+              "Offset": 752,
+              "EndOffset": 754,
+              "Path": 0,
+              "Ordinal": 22,
+              "Hits": 0
+            },
+            {
+              "Line": 101,
+              "Offset": 752,
+              "EndOffset": 758,
+              "Path": 1,
+              "Ordinal": 23,
+              "Hits": 1
+            },
+            {
+              "Line": 105,
+              "Offset": 769,
+              "EndOffset": 771,
+              "Path": 0,
+              "Ordinal": 24,
+              "Hits": 0
+            },
+            {
+              "Line": 105,
+              "Offset": 769,
+              "EndOffset": 782,
+              "Path": 1,
+              "Ordinal": 25,
+              "Hits": 1
+            },
+            {
+              "Line": 114,
+              "Offset": 804,
+              "EndOffset": 806,
+              "Path": 0,
+              "Ordinal": 26,
+              "Hits": 0
+            },
+            {
+              "Line": 114,
+              "Offset": 804,
+              "EndOffset": 818,
+              "Path": 1,
+              "Ordinal": 27,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "Pharos.Core.Services.GeminiService/<GenerateProposalAsync>d__5": {
+        "System.Void Pharos.Core.Services.GeminiService/<GenerateProposalAsync>d__5::MoveNext()": {
+          "Lines": {
+            "120": 2,
+            "122": 0,
+            "125": 2,
+            "127": 2,
+            "128": 2,
+            "129": 2,
+            "130": 2,
+            "131": 2,
+            "132": 2,
+            "133": 2,
+            "134": 2,
+            "135": 2,
+            "136": 2,
+            "137": 2,
+            "138": 2,
+            "139": 2,
+            "140": 2,
+            "142": 2,
+            "143": 2,
+            "144": 2,
+            "145": 2,
+            "146": 2,
+            "147": 2,
+            "148": 2,
+            "149": 2,
+            "150": 2,
+            "151": 2,
+            "152": 2,
+            "153": 2,
+            "154": 2,
+            "155": 2,
+            "156": 2,
+            "157": 2,
+            "158": 2,
+            "160": 2,
+            "161": 2,
+            "163": 0,
+            "164": 0,
+            "167": 2,
+            "168": 2,
+            "169": 2,
+            "170": 2,
+            "172": 2,
+            "174": 1,
+            "177": 1,
+            "178": 1
+          },
+          "Branches": [
+            {
+              "Line": 120,
+              "Offset": 43,
+              "EndOffset": 45,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 120,
+              "Offset": 43,
+              "EndOffset": 56,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 161,
+              "Offset": 353,
+              "EndOffset": 358,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            },
+            {
+              "Line": 161,
+              "Offset": 353,
+              "EndOffset": 538,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 2
+            },
+            {
+              "Line": 168,
+              "Offset": 656,
+              "EndOffset": 658,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 656,
+              "EndOffset": 661,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 2
+            },
+            {
+              "Line": 168,
+              "Offset": 668,
+              "EndOffset": 670,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 2
+            },
+            {
+              "Line": 168,
+              "Offset": 668,
+              "EndOffset": 680,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 678,
+              "EndOffset": 680,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 678,
+              "EndOffset": 683,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 693,
+              "EndOffset": 695,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 693,
+              "EndOffset": 699,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 705,
+              "EndOffset": 707,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 705,
+              "EndOffset": 711,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 717,
+              "EndOffset": 719,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 717,
+              "EndOffset": 723,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 1
+            },
+            {
+              "Line": 168,
+              "Offset": 726,
+              "EndOffset": 728,
+              "Path": 0,
+              "Ordinal": 16,
+              "Hits": 0
+            },
+            {
+              "Line": 168,
+              "Offset": 726,
+              "EndOffset": 732,
+              "Path": 1,
+              "Ordinal": 17,
+              "Hits": 1
+            },
+            {
+              "Line": 172,
+              "Offset": 743,
+              "EndOffset": 745,
+              "Path": 0,
+              "Ordinal": 18,
+              "Hits": 1
+            },
+            {
+              "Line": 172,
+              "Offset": 743,
+              "EndOffset": 756,
+              "Path": 1,
+              "Ordinal": 19,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "C:\\work\\coding\\pharos\\backend\\Pharos.Core\\Services\\ProposalService.cs": {
+      "Pharos.Core.Services.ProposalService": {
+        "System.Void Pharos.Core.Services.ProposalService::.ctor(Pharos.Core.Interfaces.IUserRepository,Pharos.Core.Interfaces.IAiService)": {
+          "Lines": {
+            "8": 5
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__3": {
+        "System.Void Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__3::MoveNext()": {
+          "Lines": {
+            "12": 5,
+            "14": 4,
+            "17": 5,
+            "19": 1,
+            "23": 4,
+            "28": 4,
+            "31": 2,
+            "33": 2,
+            "35": 2,
+            "40": 2,
+            "41": 1,
+            "42": 1,
+            "44": 1,
+            "45": 1,
+            "46": 2,
+            "48": 2
+          },
+          "Branches": [
+            {
+              "Line": 12,
+              "Offset": 51,
+              "EndOffset": 53,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 4
+            },
+            {
+              "Line": 12,
+              "Offset": 51,
+              "EndOffset": 166,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 5
+            },
+            {
+              "Line": 17,
+              "Offset": 177,
+              "EndOffset": 179,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 17,
+              "Offset": 177,
+              "EndOffset": 190,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 4
+            }
+          ]
+        }
+      }
+    }
+  }
+}

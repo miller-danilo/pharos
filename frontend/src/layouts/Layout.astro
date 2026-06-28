@@ -1,0 +1,65 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title?: string;
+	description?: string;
+}
+
+const { 
+	title = 'Pharos AI | Protect and Elevate Your Career', 
+	description = 'Scan job listings for scams and generate tailored application cover letters using AI.' 
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- SEO Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+	</head>
+	<body class="relative min-h-screen">
+		<div class="noise-overlay"></div>
+		<div class="bg-ambient-glow ambient-purple"></div>
+		<div class="bg-ambient-glow ambient-orange"></div>
+
+		<div class="relative z-10 flex flex-col min-h-screen">
+			<header class="w-full max-w-7xl mx-auto px-6 py-5 flex items-center justify-between border-b border-white/5">
+				<a href="/" class="flex items-center gap-2 font-bold text-xl text-gradient">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-brand-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+						<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+					</svg>
+					Pharos AI
+				</a>
+				
+				<nav class="flex items-center gap-6">
+					<div id="auth-nav-container"></div>
+				</nav>
+			</header>
+
+			<main class="flex-grow w-full max-w-7xl mx-auto px-6 py-12 flex flex-col">
+				<slot />
+			</main>
+
+			<footer class="w-full max-w-7xl mx-auto px-6 py-8 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-text-secondary">
+				<p>© {new Date().getFullYear()} Pharos AI. All rights reserved.</p>
+				<div class="flex items-center gap-6">
+					<a href="#" class="hover:text-text-primary transition-colors">Terms of Service</a>
+					<a href="#" class="hover:text-text-primary transition-colors">Privacy Policy</a>
+				</div>
+			</footer>
+		</div>
+	</body>
+</html>

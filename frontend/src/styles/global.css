@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bg-deep: #090B13;
+  --color-bg-ambient: #0A0E17;
+  --color-surface-glass: rgba(16, 22, 40, 0.65);
+  --color-brand-primary: #7C3AED;
+  --color-brand-gradient-start: #d2bbff;
+  --color-brand-gradient-end: #7c3aed;
+  --color-semaphore-safe: #22C55E;
+  --color-semaphore-warning: #F59E0B;
+  --color-semaphore-danger: #F43F5E;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+
+  --font-headline: "Plus Jakarta Sans", sans-serif;
+  --font-body: "Outfit", "Inter", sans-serif;
+
+  --radius-card: 1rem;
+  --radius-button: 0.5rem;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    font-family: var(--font-body);
+    background-color: var(--color-bg-deep);
+    color: var(--color-text-primary);
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-headline);
+  }
+}
+
+/* Glassmorphism panels */
+.glass-panel {
+  background: var(--color-surface-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-card);
+}
+
+/* Glow effects */
+.glow-primary {
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+.glow-safe {
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+}
+
+.glow-warning {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.glow-danger {
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+}
+
+/* Text linear gradients */
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-brand-gradient-start) 0%, var(--color-brand-gradient-end) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom background ambient glow effects */
+.bg-ambient-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.ambient-purple {
+  background-color: rgba(124, 58, 237, 0.12);
+  filter: blur(120px);
+  top: -10%;
+  left: -5%;
+}
+
+.ambient-orange {
+  background-color: rgba(189, 87, 0, 0.06);
+  filter: blur(120px);
+  bottom: 10%;
+  right: -5%;
+}
+
+/* Noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/style%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 999;
+}

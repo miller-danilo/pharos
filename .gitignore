@@ -1,0 +1,30 @@
+# === Frontend ===
+frontend/node_modules/
+frontend/.astro/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.env.production
+frontend/.env.development
+frontend/.env.local
+frontend/.env.*.local
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/pnpm-debug.log*
+frontend/coverage/
+
+# === Backend ===
+backend/**/[Bb]in/
+backend/**/[Oo]bj/
+backend/**/*.user
+backend/**/*.suo
+backend/**/*.userosscache
+backend/**/*.sln.docstates
+backend/.vscode/
+backend/.idea/
+backend/appsettings.local.json
+backend/TestResults/
+
+# === System ===
+.DS_Store
+Thumbs.db
