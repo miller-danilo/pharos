@@ -153,7 +153,7 @@ onMounted(() => {
   if (!document.getElementById('lemonsqueezy-script')) {
     const script = document.createElement('script');
     script.id = 'lemonsqueezy-script';
-    script.src = 'https://lmsqueezy.com/assets/checkout.js';
+    script.src = 'https://app.lemonsqueezy.com/js/checkout.js';
     script.defer = true;
     document.head.appendChild(script);
   }
