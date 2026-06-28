@@ -37,6 +37,13 @@ namespace Pharos.Core.Services
                 ProjectId = projectId,
                 EmulatorDetection = EmulatorDetection.EmulatorOrProduction
             };
+
+            string? credentialsJson = configuration["Google:CredentialsJson"] ?? Environment.GetEnvironmentVariable("GOOGLE_CREDENTIALS_JSON");
+            if (!string.IsNullOrEmpty(credentialsJson))
+            {
+                builder.GoogleCredential = Google.Apis.Auth.OAuth2.GoogleCredential.FromJson(credentialsJson);
+            }
+
             _db = builder.Build();
         }
 

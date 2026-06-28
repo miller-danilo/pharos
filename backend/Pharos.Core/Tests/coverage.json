@@ -1,6 +1,6 @@
 {
   "Pharos.Core.dll": {
-    "C:\\work\\coding\\pharos\\backend\\Pharos.Core\\Services\\GeminiService.cs": {
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\GeminiService.cs": {
       "Pharos.Core.Services.GeminiService": {
         "System.Void Pharos.Core.Services.GeminiService::.ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Configuration.IConfiguration)": {
           "Lines": {
@@ -606,7 +606,7 @@
         }
       }
     },
-    "C:\\work\\coding\\pharos\\backend\\Pharos.Core\\Services\\ProposalService.cs": {
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\ProposalService.cs": {
       "Pharos.Core.Services.ProposalService": {
         "System.Void Pharos.Core.Services.ProposalService::.ctor(Pharos.Core.Interfaces.IUserRepository,Pharos.Core.Interfaces.IAiService)": {
           "Lines": {
