@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Pharos.Core.Services;
 using Pharos.Core.Interfaces;
+using Pharos.Api.Authentication;
 using System;
 using System.Threading.RateLimiting;
 using System.IdentityModel.Tokens.Jwt;
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen();
 // Register Firestore and Gemini Services
 builder.Services.AddSingleton<FirestoreService>();
 builder.Services.AddSingleton<IUserRepository>(sp => sp.GetRequiredService<FirestoreService>());
+builder.Services.AddSingleton<ICreditRepository>(sp => sp.GetRequiredService<FirestoreService>());
+builder.Services.AddSingleton<IConfigRepository>(sp => sp.GetRequiredService<FirestoreService>());
 builder.Services.AddSingleton<IScanRepository>(sp => sp.GetRequiredService<FirestoreService>());
 if (builder.Configuration.GetValue<bool>("Gemini:UseMock"))
 {
@@ -27,6 +30,8 @@ else
     builder.Services.AddHttpClient<IAiService, GeminiService>();
 }
 builder.Services.AddScoped<IProposalService, ProposalService>();
+builder.Services.AddScoped<IShieldService, ShieldService>();
+builder.Services.AddScoped<IPaymentWebhookService, PaymentWebhookService>();
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -109,23 +114,3 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-public class DevTokenValidator : ISecurityTokenValidator
-{
-    public bool CanReadToken(string securityToken) => true;
-
-    public bool CanValidateToken => true;
-
-    public ClaimsPrincipal ValidateToken(string securityToken, TokenValidationParameters validationParameters, out SecurityToken validatedToken)
-    {
-        var handler = new JwtSecurityTokenHandler();
-        var jwtToken = handler.ReadJwtToken(securityToken);
-        validatedToken = jwtToken;
-
-        var identity = new ClaimsIdentity(jwtToken.Claims, "Bearer");
-        return new ClaimsPrincipal(identity);
-    }
-
-    public bool CanWriteToken => false;
-    public int MaximumTokenSizeInBytes { get; set; } = int.MaxValue;
-}

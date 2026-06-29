@@ -11,6 +11,7 @@
       <a href="/" class="inline-flex items-center gap-2 px-6 h-11 bg-brand-primary text-white font-semibold rounded-lg shadow-md hover:bg-brand-primary/95 transition-all text-sm cursor-pointer glow-primary">
         Go to Scanner
       </a>
+      <p v-if="error" class="text-sm text-semaphore-danger text-center mt-2 font-medium">{{ error }}</p>
     </div>
 
     <div v-else class="space-y-8">
@@ -78,39 +79,14 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted } from 'vue';
+<script setup lang="ts">
+import { onMounted } from 'vue';
 import ProposalWidget from './ProposalWidget.vue';
-import { STORAGE_KEYS } from '../config';
+import { useScanner } from '../composables/useScanner';
 
-const scanResult = ref(null);
-const jobText = ref('');
+const { scanResult, jobText, error, loadScanDetails, badgeClasses } = useScanner();
 
 onMounted(() => {
-  try {
-    const rawResult = sessionStorage.getItem(STORAGE_KEYS.SCAN_RESULT);
-    const rawText = sessionStorage.getItem(STORAGE_KEYS.SCANNED_JOB_TEXT);
-    if (rawResult) {
-      scanResult.value = JSON.parse(rawResult);
-    }
-    if (rawText) {
-      jobText.value = rawText;
-    }
-  } catch (err) {
-    console.error('Error loading scan details:', err);
-  }
-});
-
-const badgeClasses = computed(() => {
-  if (!scanResult.value) return '';
-  const level = scanResult.value.riskLevel.toUpperCase();
-  
-  if (level === 'GREEN') {
-    return 'border-semaphore-safe/25 bg-semaphore-safe/5 text-semaphore-safe glow-safe';
-  } else if (level === 'YELLOW') {
-    return 'border-semaphore-warning/25 bg-semaphore-warning/5 text-semaphore-warning glow-warning';
-  } else {
-    return 'border-semaphore-danger/25 bg-semaphore-danger/5 text-semaphore-danger glow-danger';
-  }
+  loadScanDetails();
 });
 </script>

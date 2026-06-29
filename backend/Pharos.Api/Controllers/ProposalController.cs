@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharos.Core.Interfaces;
+using Pharos.Core.Models.Requests;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -40,16 +41,10 @@ namespace Pharos.Api.Controllers
             {
                 return StatusCode(402, "Insufficient credits. Please purchase more credits.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return StatusCode(500, $"Error generating proposal: {ex.Message}");
+                return StatusCode(500, "An error occurred while generating the proposal.");
             }
-        }
-
-        public class ProposalRequest
-        {
-            public string JobText { get; set; } = string.Empty;
-            public string CvText { get; set; } = string.Empty;
         }
     }
 }

@@ -1,5 +1,38 @@
 {
   "Pharos.Core.dll": {
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Utilities\\HashHelper.cs": {
+      "Pharos.Core.Utilities.HashHelper": {
+        "System.String Pharos.Core.Utilities.HashHelper::ComputeSha256(System.String)": {
+          "Lines": {
+            "11": 3,
+            "12": 3,
+            "13": 3,
+            "14": 3
+          },
+          "Branches": []
+        },
+        "System.String Pharos.Core.Utilities.HashHelper::ComputeSha256(System.Byte[])": {
+          "Lines": {
+            "18": 1,
+            "19": 1,
+            "20": 1,
+            "21": 1
+          },
+          "Branches": []
+        },
+        "System.String Pharos.Core.Utilities.HashHelper::ComputeHmacSha256(System.String,System.String)": {
+          "Lines": {
+            "25": 4,
+            "26": 4,
+            "27": 4,
+            "28": 4,
+            "29": 4,
+            "30": 4
+          },
+          "Branches": []
+        }
+      }
+    },
     "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\GeminiService.cs": {
       "Pharos.Core.Services.GeminiService": {
         "System.Void Pharos.Core.Services.GeminiService::.ctor(System.Net.Http.HttpClient,Microsoft.Extensions.Configuration.IConfiguration)": {
@@ -739,38 +772,453 @@
         }
       }
     },
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\PaymentWebhookService.cs": {
+      "Pharos.Core.Services.PaymentWebhookService": {
+        "System.Void Pharos.Core.Services.PaymentWebhookService::.ctor(Pharos.Core.Interfaces.ICreditRepository,Microsoft.Extensions.Configuration.IConfiguration)": {
+          "Lines": {
+            "16": 4,
+            "18": 4,
+            "19": 4,
+            "20": 4,
+            "21": 4,
+            "22": 4
+          },
+          "Branches": [
+            {
+              "Line": 19,
+              "Offset": 26,
+              "EndOffset": 28,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 19,
+              "Offset": 40,
+              "EndOffset": 42,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 19,
+              "Offset": 26,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            },
+            {
+              "Line": 19,
+              "Offset": 40,
+              "EndOffset": 48,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            }
+          ]
+        }
+      },
+      "Pharos.Core.Services.PaymentWebhookService/<ProcessWebhookAsync>d__3": {
+        "System.Void Pharos.Core.Services.PaymentWebhookService/<ProcessWebhookAsync>d__3::MoveNext()": {
+          "Lines": {
+            "26": 4,
+            "28": 3,
+            "30": 1,
+            "33": 2,
+            "34": 2,
+            "36": 1,
+            "40": 2,
+            "41": 2,
+            "43": 2,
+            "44": 2,
+            "46": 1,
+            "49": 1,
+            "50": 1,
+            "51": 1,
+            "53": 1,
+            "55": 1,
+            "57": 0,
+            "59": 0,
+            "63": 1,
+            "65": 0,
+            "68": 1,
+            "69": 1,
+            "71": 1,
+            "73": 1,
+            "74": 1,
+            "76": 1,
+            "78": 1,
+            "82": 1,
+            "83": 1,
+            "85": 1,
+            "87": 0,
+            "89": 0,
+            "92": 1,
+            "94": 1,
+            "96": 1,
+            "100": 1,
+            "102": 1,
+            "105": 1,
+            "106": 2
+          },
+          "Branches": [
+            {
+              "Line": 26,
+              "Offset": 28,
+              "EndOffset": 30,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            },
+            {
+              "Line": 28,
+              "Offset": 41,
+              "EndOffset": 43,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 28,
+              "Offset": 41,
+              "EndOffset": 54,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 2
+            },
+            {
+              "Line": 34,
+              "Offset": 83,
+              "EndOffset": 85,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 26,
+              "Offset": 28,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 34,
+              "Offset": 83,
+              "EndOffset": 96,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 2
+            },
+            {
+              "Line": 43,
+              "Offset": 178,
+              "EndOffset": 180,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 0
+            },
+            {
+              "Line": 43,
+              "Offset": 178,
+              "EndOffset": 186,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 2
+            },
+            {
+              "Line": 44,
+              "Offset": 196,
+              "EndOffset": 198,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 1
+            },
+            {
+              "Line": 44,
+              "Offset": 196,
+              "EndOffset": 203,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 1
+            },
+            {
+              "Line": 51,
+              "Offset": 237,
+              "EndOffset": 239,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 1
+            },
+            {
+              "Line": 53,
+              "Offset": 253,
+              "EndOffset": 255,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 1
+            },
+            {
+              "Line": 55,
+              "Offset": 263,
+              "EndOffset": 265,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 55,
+              "Offset": 263,
+              "EndOffset": 271,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 1
+            },
+            {
+              "Line": 53,
+              "Offset": 253,
+              "EndOffset": 275,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 57,
+              "Offset": 289,
+              "EndOffset": 291,
+              "Path": 0,
+              "Ordinal": 16,
+              "Hits": 0
+            },
+            {
+              "Line": 59,
+              "Offset": 299,
+              "EndOffset": 301,
+              "Path": 0,
+              "Ordinal": 18,
+              "Hits": 0
+            },
+            {
+              "Line": 59,
+              "Offset": 299,
+              "EndOffset": 307,
+              "Path": 1,
+              "Ordinal": 19,
+              "Hits": 0
+            },
+            {
+              "Line": 51,
+              "Offset": 237,
+              "EndOffset": 309,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 1
+            },
+            {
+              "Line": 57,
+              "Offset": 289,
+              "EndOffset": 309,
+              "Path": 1,
+              "Ordinal": 17,
+              "Hits": 1
+            },
+            {
+              "Line": 63,
+              "Offset": 316,
+              "EndOffset": 318,
+              "Path": 0,
+              "Ordinal": 20,
+              "Hits": 0
+            },
+            {
+              "Line": 63,
+              "Offset": 316,
+              "EndOffset": 329,
+              "Path": 1,
+              "Ordinal": 21,
+              "Hits": 1
+            },
+            {
+              "Line": 69,
+              "Offset": 365,
+              "EndOffset": 367,
+              "Path": 0,
+              "Ordinal": 22,
+              "Hits": 0
+            },
+            {
+              "Line": 69,
+              "Offset": 365,
+              "EndOffset": 388,
+              "Path": 1,
+              "Ordinal": 23,
+              "Hits": 1
+            },
+            {
+              "Line": 74,
+              "Offset": 422,
+              "EndOffset": 424,
+              "Path": 0,
+              "Ordinal": 24,
+              "Hits": 1
+            },
+            {
+              "Line": 76,
+              "Offset": 438,
+              "EndOffset": 440,
+              "Path": 0,
+              "Ordinal": 26,
+              "Hits": 1
+            },
+            {
+              "Line": 74,
+              "Offset": 422,
+              "EndOffset": 449,
+              "Path": 1,
+              "Ordinal": 25,
+              "Hits": 1
+            },
+            {
+              "Line": 76,
+              "Offset": 438,
+              "EndOffset": 449,
+              "Path": 1,
+              "Ordinal": 27,
+              "Hits": 1
+            },
+            {
+              "Line": 85,
+              "Offset": 478,
+              "EndOffset": 480,
+              "Path": 0,
+              "Ordinal": 28,
+              "Hits": 0
+            },
+            {
+              "Line": 87,
+              "Offset": 488,
+              "EndOffset": 490,
+              "Path": 0,
+              "Ordinal": 30,
+              "Hits": 0
+            },
+            {
+              "Line": 85,
+              "Offset": 478,
+              "EndOffset": 513,
+              "Path": 1,
+              "Ordinal": 29,
+              "Hits": 1
+            },
+            {
+              "Line": 92,
+              "Offset": 527,
+              "EndOffset": 529,
+              "Path": 0,
+              "Ordinal": 32,
+              "Hits": 1
+            },
+            {
+              "Line": 94,
+              "Offset": 537,
+              "EndOffset": 539,
+              "Path": 0,
+              "Ordinal": 34,
+              "Hits": 1
+            },
+            {
+              "Line": 87,
+              "Offset": 488,
+              "EndOffset": 560,
+              "Path": 1,
+              "Ordinal": 31,
+              "Hits": 1
+            },
+            {
+              "Line": 92,
+              "Offset": 527,
+              "EndOffset": 560,
+              "Path": 1,
+              "Ordinal": 33,
+              "Hits": 1
+            },
+            {
+              "Line": 94,
+              "Offset": 537,
+              "EndOffset": 560,
+              "Path": 1,
+              "Ordinal": 35,
+              "Hits": 1
+            },
+            {
+              "Line": 100,
+              "Offset": 574,
+              "EndOffset": 576,
+              "Path": 0,
+              "Ordinal": 36,
+              "Hits": 1
+            },
+            {
+              "Line": 102,
+              "Offset": 584,
+              "EndOffset": 586,
+              "Path": 0,
+              "Ordinal": 38,
+              "Hits": 0
+            },
+            {
+              "Line": 102,
+              "Offset": 584,
+              "EndOffset": 592,
+              "Path": 1,
+              "Ordinal": 39,
+              "Hits": 1
+            },
+            {
+              "Line": 100,
+              "Offset": 574,
+              "EndOffset": 594,
+              "Path": 1,
+              "Ordinal": 37,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
     "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\ProposalService.cs": {
       "Pharos.Core.Services.ProposalService": {
-        "System.Void Pharos.Core.Services.ProposalService::.ctor(Pharos.Core.Interfaces.IUserRepository,Pharos.Core.Interfaces.IAiService)": {
+        "System.Void Pharos.Core.Services.ProposalService::.ctor(Pharos.Core.Interfaces.IUserRepository,Pharos.Core.Interfaces.ICreditRepository,Pharos.Core.Interfaces.IAiService,Microsoft.Extensions.Logging.ILogger`1<Pharos.Core.Services.ProposalService>)": {
           "Lines": {
-            "8": 5
+            "9": 5
           },
           "Branches": []
         }
       },
-      "Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__3": {
-        "System.Void Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__3::MoveNext()": {
+      "Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__5": {
+        "System.Void Pharos.Core.Services.ProposalService/<GenerateProposalWithCreditControlAsync>d__5::MoveNext()": {
           "Lines": {
-            "12": 5,
-            "14": 4,
-            "17": 5,
-            "19": 1,
-            "23": 4,
-            "28": 4,
-            "31": 2,
-            "33": 2,
-            "35": 2,
-            "40": 2,
-            "41": 1,
+            "13": 5,
+            "15": 4,
+            "18": 5,
+            "20": 1,
+            "24": 4,
+            "29": 4,
+            "32": 2,
+            "34": 2,
+            "36": 2,
+            "41": 2,
             "42": 1,
-            "44": 1,
+            "43": 1,
             "45": 1,
-            "46": 2,
-            "48": 2
+            "46": 1,
+            "47": 2,
+            "49": 2
           },
           "Branches": [
             {
-              "Line": 12,
+              "Line": 13,
               "Offset": 51,
               "EndOffset": 53,
               "Path": 0,
@@ -778,7 +1226,7 @@
               "Hits": 4
             },
             {
-              "Line": 12,
+              "Line": 13,
               "Offset": 51,
               "EndOffset": 166,
               "Path": 1,
@@ -786,7 +1234,7 @@
               "Hits": 5
             },
             {
-              "Line": 17,
+              "Line": 18,
               "Offset": 177,
               "EndOffset": 179,
               "Path": 0,
@@ -794,7 +1242,7 @@
               "Hits": 1
             },
             {
-              "Line": 17,
+              "Line": 18,
               "Offset": 177,
               "EndOffset": 190,
               "Path": 1,
@@ -802,6 +1250,228 @@
               "Hits": 4
             }
           ]
+        }
+      }
+    },
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Services\\ShieldService.cs": {
+      "Pharos.Core.Services.ShieldService": {
+        "System.Void Pharos.Core.Services.ShieldService::.ctor(Pharos.Core.Interfaces.IAiService,Pharos.Core.Interfaces.IScanRepository,Pharos.Core.Interfaces.IUserRepository)": {
+          "Lines": {
+            "10": 2
+          },
+          "Branches": []
+        }
+      },
+      "Pharos.Core.Services.ShieldService/<AnalyzeScanAsync>d__4": {
+        "System.Void Pharos.Core.Services.ShieldService/<AnalyzeScanAsync>d__4::MoveNext()": {
+          "Lines": {
+            "14": 2,
+            "15": 2,
+            "17": 0,
+            "19": 2,
+            "21": 2,
+            "24": 2,
+            "25": 2,
+            "27": 1,
+            "28": 1,
+            "29": 1,
+            "31": 1,
+            "35": 1,
+            "37": 1,
+            "38": 1,
+            "39": 1,
+            "40": 1,
+            "41": 1,
+            "42": 1,
+            "43": 1,
+            "44": 1,
+            "45": 1,
+            "46": 1,
+            "47": 1,
+            "49": 1,
+            "50": 1,
+            "51": 1,
+            "52": 1,
+            "53": 1,
+            "54": 1,
+            "55": 1,
+            "56": 1,
+            "57": 1,
+            "58": 1,
+            "59": 1,
+            "60": 1,
+            "61": 1,
+            "62": 1,
+            "63": 1,
+            "65": 1,
+            "66": 2
+          },
+          "Branches": [
+            {
+              "Line": 15,
+              "Offset": 57,
+              "EndOffset": 59,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 15,
+              "Offset": 57,
+              "EndOffset": 78,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            },
+            {
+              "Line": 19,
+              "Offset": 89,
+              "EndOffset": 91,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 2
+            },
+            {
+              "Line": 19,
+              "Offset": 89,
+              "EndOffset": 108,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 2
+            },
+            {
+              "Line": 25,
+              "Offset": 229,
+              "EndOffset": 234,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 1
+            },
+            {
+              "Line": 29,
+              "Offset": 360,
+              "EndOffset": 362,
+              "Path": 0,
+              "Ordinal": 6,
+              "Hits": 1
+            },
+            {
+              "Line": 25,
+              "Offset": 229,
+              "EndOffset": 370,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 1
+            },
+            {
+              "Line": 29,
+              "Offset": 360,
+              "EndOffset": 370,
+              "Path": 1,
+              "Ordinal": 7,
+              "Hits": 1
+            },
+            {
+              "Line": 37,
+              "Offset": 521,
+              "EndOffset": 523,
+              "Path": 0,
+              "Ordinal": 8,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 530,
+              "EndOffset": 532,
+              "Path": 0,
+              "Ordinal": 10,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 521,
+              "EndOffset": 540,
+              "Path": 1,
+              "Ordinal": 9,
+              "Hits": 1
+            },
+            {
+              "Line": 37,
+              "Offset": 553,
+              "EndOffset": 555,
+              "Path": 0,
+              "Ordinal": 12,
+              "Hits": 1
+            },
+            {
+              "Line": 37,
+              "Offset": 553,
+              "EndOffset": 563,
+              "Path": 1,
+              "Ordinal": 13,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 530,
+              "EndOffset": 577,
+              "Path": 1,
+              "Ordinal": 11,
+              "Hits": 1
+            },
+            {
+              "Line": 37,
+              "Offset": 618,
+              "EndOffset": 620,
+              "Path": 0,
+              "Ordinal": 14,
+              "Hits": 0
+            },
+            {
+              "Line": 37,
+              "Offset": 618,
+              "EndOffset": 626,
+              "Path": 1,
+              "Ordinal": 15,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Models\\Requests\\CvUpdateRequest.cs": {
+      "Pharos.Core.Models.Requests.CvUpdateRequest": {
+        "System.String Pharos.Core.Models.Requests.CvUpdateRequest::get_CvText()": {
+          "Lines": {
+            "5": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Models\\Requests\\ProposalRequest.cs": {
+      "Pharos.Core.Models.Requests.ProposalRequest": {
+        "System.String Pharos.Core.Models.Requests.ProposalRequest::get_JobText()": {
+          "Lines": {
+            "5": 0
+          },
+          "Branches": []
+        },
+        "System.String Pharos.Core.Models.Requests.ProposalRequest::get_CvText()": {
+          "Lines": {
+            "6": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "C:\\work\\coding\\pharos\\src\\backend\\Pharos.Core\\Models\\Requests\\ScanRequest.cs": {
+      "Pharos.Core.Models.Requests.ScanRequest": {
+        "System.String Pharos.Core.Models.Requests.ScanRequest::get_Text()": {
+          "Lines": {
+            "5": 0
+          },
+          "Branches": []
         }
       }
     }

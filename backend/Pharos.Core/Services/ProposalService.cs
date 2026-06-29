@@ -1,11 +1,12 @@
 using Pharos.Core.Interfaces;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
 namespace Pharos.Core.Services
 {
     // C# 12 Primary Constructor
-    public class ProposalService(IUserRepository userRepo, IAiService aiService) : IProposalService
+    public class ProposalService(IUserRepository userRepo, ICreditRepository creditRepo, IAiService aiService, ILogger<ProposalService> logger) : IProposalService
     {
         public async Task<string> GenerateProposalWithCreditControlAsync(string userId, string cvText, string jobText)
         {
@@ -20,7 +21,7 @@ namespace Pharos.Core.Services
             }
 
             // Step 1: Lock credit (Lease / Lock)
-            string transactionId = await userRepo.LockCreditAsync(userId);
+            string transactionId = await creditRepo.LockCreditAsync(userId);
 
             try
             {
@@ -28,7 +29,7 @@ namespace Pharos.Core.Services
                 var proposalResult = await aiService.GenerateProposalAsync(cvText, jobText);
 
                 // Step 3: Confirm credit deduction (Release lock - finalized!)
-                await userRepo.ConfirmCreditDeductionAsync(userId, transactionId, proposalResult.PromptTokens, proposalResult.CompletionTokens);
+                await creditRepo.ConfirmCreditDeductionAsync(userId, transactionId, proposalResult.PromptTokens, proposalResult.CompletionTokens);
 
                 return proposalResult.ProposalText;
             }
@@ -37,11 +38,11 @@ namespace Pharos.Core.Services
                 try
                 {
                     // Step 4: Release lock (Refund credit)
-                    await userRepo.ReleaseCreditLockAsync(userId);
+                    await creditRepo.ReleaseCreditLockAsync(userId);
                 }
                 catch (Exception refundEx)
                 {
-                    Console.WriteLine($"Critical: Failed to release credit lock for user {userId}: {refundEx.Message}");
+                    logger.LogCritical(refundEx, "Critical: Failed to release credit lock for user {UserId}", userId);
                 }
                 throw;
             }

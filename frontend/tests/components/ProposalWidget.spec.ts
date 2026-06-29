@@ -11,6 +11,7 @@ let mockApiUrl = 'https://api.pharos-production.com';
 
 vi.mock('../../src/config', () => ({
   get API_BASE_URL() { return mockApiUrl; },
+  LEMON_SQUEEZY_CHECKOUT_URL: 'https://pharos-ai.lemonsqueezy.com/buy/variant-id',
   STORAGE_KEYS: {
     SCAN_RESULT: 'scanResult',
     SCANNED_JOB_TEXT: 'scannedJobText'
@@ -30,6 +31,7 @@ vi.mock('../../src/services/apiService', () => ({
   fetchUserProfile: vi.fn().mockResolvedValue({ credits: 5, cvText: 'My CV' }),
   saveUserCv: vi.fn().mockResolvedValue({ message: 'CV saved' }),
   generateProposal: vi.fn().mockResolvedValue({ proposal: 'Cover Letter text' }),
+  sendMockWebhook: vi.fn().mockResolvedValue({ message: 'Success' }),
   fetchUserTransactions: vi.fn().mockResolvedValue([
     {
       id: 'tx_1',
@@ -65,6 +67,9 @@ describe('ProposalWidget.vue', () => {
     const wrapper = mount(ProposalWidget, {
       props: { jobText: 'Software Engineer Job vacancy details' }
     });
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await wrapper.vm.$nextTick();
+
     expect(wrapper.text()).toContain('Sign In with Google');
     
     const signInBtn = wrapper.find('button');
@@ -157,6 +162,7 @@ describe('ProposalWidget.vue', () => {
     const buyButton = buttons.find(b => b.text().includes('Buy Credits'));
     expect(buyButton).toBeDefined();
     await buyButton?.trigger('click');
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(openMock).toHaveBeenCalled();
   });
 
@@ -181,6 +187,7 @@ describe('ProposalWidget.vue', () => {
     const buyButton = buttons.find(b => b.text().includes('Buy Credits'));
     expect(buyButton).toBeDefined();
     await buyButton?.trigger('click');
+    await new Promise((resolve) => setTimeout(resolve, 50));
     expect(openMock).toHaveBeenCalled();
   });
 
@@ -189,6 +196,8 @@ describe('ProposalWidget.vue', () => {
     const wrapper = mount(ProposalWidget, {
       props: { jobText: 'Job details' }
     });
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    await wrapper.vm.$nextTick();
 
     const signInBtn = wrapper.find('button');
     await signInBtn.trigger('click');
@@ -271,6 +280,7 @@ describe('ProposalWidget.vue', () => {
     const buyButton = wrapper.findAll('button').find(b => b.text().includes('Buy Credits'));
     expect(buyButton).toBeDefined();
     await buyButton?.trigger('click');
-    expect(fetchMock).toHaveBeenCalled();
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    expect(apiService.sendMockWebhook).toHaveBeenCalled();
   });
 });

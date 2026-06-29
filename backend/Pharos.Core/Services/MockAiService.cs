@@ -1,5 +1,6 @@
 using Pharos.Core.Interfaces;
 using Pharos.Core.Models;
+using Pharos.Core.Constants;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
@@ -54,8 +55,8 @@ El equipo de Pharos (Simulación)";
             var result = new ProposalResult
             {
                 ProposalText = mockProposal,
-                PromptTokens = 500,
-                CompletionTokens = 250
+                PromptTokens = CreditDefaults.MockPromptTokens,
+                CompletionTokens = CreditDefaults.MockCompletionTokens
             };
 
             return Task.FromResult(result);

@@ -14,7 +14,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Pharos.Core.Services
 {
     [ExcludeFromCodeCoverage]
-    public class FirestoreService : IUserRepository, IScanRepository
+    public class FirestoreService : IUserRepository, ICreditRepository, IConfigRepository, IScanRepository
     {
         private readonly FirestoreDb _db;
 
@@ -63,7 +63,7 @@ namespace Pharos.Core.Services
                 {
                     Id = userId,
                     Email = email,
-                    Credits = 3,
+                    Credits = CreditDefaults.WelcomeBalance,
                     CvText = string.Empty,
                     CreatedAt = DateTime.UtcNow
                 };
@@ -75,9 +75,16 @@ namespace Pharos.Core.Services
                 {
                     Id = txnRef.Id,
                     UserId = userId,
-                    CreditsChanged = 3,
+                    CreditsChanged = CreditDefaults.WelcomeBalance,
                     Reason = FirestoreConstants.TransactionReasons.WelcomeBalance,
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    Usage = new UsageTelemetry
+                    {
+                        PromptTokens = 0,
+                        CompletionTokens = 0,
+                        DbReads = 0,
+                        DbWrites = TelemetryDefaults.DbOperations.WelcomeBalanceWrites
+                    }
                 };
                 dbTransaction.Create(txnRef, txn);
                 
@@ -115,7 +122,7 @@ namespace Pharos.Core.Services
                 var user = snapshot.ConvertTo<User>();
                 
                 // Concurrency lock check (expires in 5 minutes)
-                if (user.CreditLockedAt != null && DateTime.UtcNow - user.CreditLockedAt.Value < TimeSpan.FromMinutes(5))
+                if (user.CreditLockedAt != null && DateTime.UtcNow - user.CreditLockedAt.Value < TimeSpan.FromMinutes(CreditDefaults.LockTimeoutMinutes))
                 {
                     throw new InvalidOperationException("An AI generation is already in progress.");
                 }
@@ -177,8 +184,8 @@ namespace Pharos.Core.Services
                 {
                     PromptTokens = promptTokens,
                     CompletionTokens = completionTokens,
-                    DbReads = 2,
-                    DbWrites = 2
+                    DbReads = TelemetryDefaults.DbOperations.ProposalReads,
+                    DbWrites = TelemetryDefaults.DbOperations.ProposalWrites
                 };
                 await txnRef.UpdateAsync("usage", usage);
             }
@@ -214,8 +221,8 @@ namespace Pharos.Core.Services
                         {
                             PromptTokens = 0,
                             CompletionTokens = 0,
-                            DbReads = 2,
-                            DbWrites = 2
+                            DbReads = TelemetryDefaults.DbOperations.ProposalReads,
+                            DbWrites = TelemetryDefaults.DbOperations.ProposalWrites
                         }
                     };
                     dbTransaction.Create(txnRef, txn);
@@ -256,15 +263,15 @@ namespace Pharos.Core.Services
                     Id = txnRef.Id,
                     UserId = userId,
                     CreditsChanged = amount,
-                    Reason = $"payment_purchase:{paymentId}",
+                    Reason = $"{FirestoreConstants.TransactionReasons.PaymentPurchasePrefix}{paymentId}",
                     CreatedAt = DateTime.UtcNow,
                     Currency = currency,
                     Usage = new UsageTelemetry
                     {
                         PromptTokens = 0,
                         CompletionTokens = 0,
-                        DbReads = 1,
-                        DbWrites = 2
+                        DbReads = TelemetryDefaults.DbOperations.PaymentReads,
+                        DbWrites = TelemetryDefaults.DbOperations.PaymentWrites
                     }
                 };
                 dbTransaction.Create(txnRef, txn);
@@ -348,7 +355,7 @@ namespace Pharos.Core.Services
 
         public async Task<CostMultipliers> GetCostMultipliersAsync()
         {
-            DocumentReference docRef = _db.Collection("config").Document("cost_multipliers");
+            DocumentReference docRef = _db.Collection(FirestoreConstants.Collections.Config).Document(FirestoreConstants.Documents.CostMultipliers);
             DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
             if (snapshot.Exists)
             {
@@ -359,7 +366,7 @@ namespace Pharos.Core.Services
 
         public async Task SaveCostMultipliersAsync(CostMultipliers multipliers)
         {
-            DocumentReference docRef = _db.Collection("config").Document("cost_multipliers");
+            DocumentReference docRef = _db.Collection(FirestoreConstants.Collections.Config).Document(FirestoreConstants.Documents.CostMultipliers);
             await docRef.SetAsync(multipliers);
         }
     }

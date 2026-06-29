@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Pharos.Core.Interfaces;
+using Pharos.Core.Models.Requests;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -22,8 +24,15 @@ namespace Pharos.Api.Controllers
                 return Unauthorized();
             }
 
-            var user = await userRepository.GetOrCreateUserAsync(userId, email);
-            return Ok(user);
+            try
+            {
+                var user = await userRepository.GetOrCreateUserAsync(userId, email);
+                return Ok(user);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while retrieving user profile.");
+            }
         }
 
         [HttpGet("transactions")]
@@ -36,8 +45,15 @@ namespace Pharos.Api.Controllers
                 return Unauthorized();
             }
 
-            var transactions = await userRepository.GetUserTransactionsAsync(userId);
-            return Ok(transactions);
+            try
+            {
+                var transactions = await userRepository.GetUserTransactionsAsync(userId);
+                return Ok(transactions);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while retrieving transactions.");
+            }
         }
 
         [HttpPost("cv")]
@@ -55,13 +71,15 @@ namespace Pharos.Api.Controllers
                 return BadRequest("CV text cannot be empty.");
             }
 
-            await userRepository.UpdateUserCvAsync(userId, request.CvText);
-            return Ok(new { message = "CV updated successfully" });
-        }
-
-        public class CvUpdateRequest
-        {
-            public string CvText { get; set; } = string.Empty;
+            try
+            {
+                await userRepository.UpdateUserCvAsync(userId, request.CvText);
+                return Ok(new { message = "CV updated successfully" });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while updating CV.");
+            }
         }
     }
 }

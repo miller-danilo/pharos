@@ -34,6 +34,8 @@ describe('Scanner.vue', () => {
     const form = wrapper.find('form');
     await form.trigger('submit');
 
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     expect(fetchMock).toHaveBeenCalled();
     expect(sessionStorage.getItem(STORAGE_KEYS.SCAN_RESULT)).toContain('GREEN');
     expect(sessionStorage.getItem(STORAGE_KEYS.SCANNED_JOB_TEXT)).toBe('Fake job details');
@@ -102,6 +104,8 @@ describe('Scanner.vue', () => {
 
     const form = wrapper.find('form');
     await form.trigger('submit');
+
+    await new Promise((resolve) => setTimeout(resolve, 50));
 
     expect(fetchMock).toHaveBeenCalled();
     expect(sessionStorage.getItem(STORAGE_KEYS.SCAN_RESULT)).toContain('YELLOW');

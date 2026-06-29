@@ -2,6 +2,7 @@ using Moq;
 using Pharos.Core.Interfaces;
 using Pharos.Core.Models;
 using Pharos.Core.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,14 +12,18 @@ namespace Pharos.Core.Tests.Services
     public class ProposalServiceTests
     {
         private readonly Mock<IUserRepository> _userRepoMock;
+        private readonly Mock<ICreditRepository> _creditRepoMock;
         private readonly Mock<IAiService> _aiServiceMock;
+        private readonly Mock<ILogger<ProposalService>> _loggerMock;
         private readonly ProposalService _service;
 
         public ProposalServiceTests()
         {
             _userRepoMock = new Mock<IUserRepository>();
+            _creditRepoMock = new Mock<ICreditRepository>();
             _aiServiceMock = new Mock<IAiService>();
-            _service = new ProposalService(_userRepoMock.Object, _aiServiceMock.Object);
+            _loggerMock = new Mock<ILogger<ProposalService>>();
+            _service = new ProposalService(_userRepoMock.Object, _creditRepoMock.Object, _aiServiceMock.Object, _loggerMock.Object);
         }
 
         [Fact]
@@ -44,7 +49,7 @@ namespace Pharos.Core.Tests.Services
             _userRepoMock.Setup(r => r.GetUserCvAsync("user123"))
                 .ReturnsAsync(cv);
 
-            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+            _creditRepoMock.Setup(r => r.LockCreditAsync("user123"))
                 .ReturnsAsync("mock-tx-123");
 
             var mockProposalResult = new ProposalResult
@@ -62,10 +67,10 @@ namespace Pharos.Core.Tests.Services
 
             // Assert
             Assert.Equal(generatedProposal, result);
-            _userRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
+            _creditRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
             _aiServiceMock.Verify(a => a.GenerateProposalAsync(cv, job), Times.Once);
-            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", "mock-tx-123", 100, 50), Times.Once);
-            _userRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Never);
+            _creditRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", "mock-tx-123", 100, 50), Times.Once);
+            _creditRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Never);
         }
 
         [Fact]
@@ -78,7 +83,7 @@ namespace Pharos.Core.Tests.Services
             _userRepoMock.Setup(r => r.GetUserCvAsync("user123"))
                 .ReturnsAsync(cv);
 
-            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+            _creditRepoMock.Setup(r => r.LockCreditAsync("user123"))
                 .ReturnsAsync("mock-tx-123");
 
             _aiServiceMock.Setup(a => a.GenerateProposalAsync(cv, job))
@@ -88,9 +93,9 @@ namespace Pharos.Core.Tests.Services
             await Assert.ThrowsAsync<Exception>(() =>
                 _service.GenerateProposalWithCreditControlAsync("user123", "", job));
 
-            _userRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
-            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
-            _userRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Once);
+            _creditRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
+            _creditRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
+            _creditRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Once);
         }
 
         [Fact]
@@ -101,7 +106,7 @@ namespace Pharos.Core.Tests.Services
             string job = "Lead C# Dev";
             string generatedProposal = "Dear Lead Developer...";
 
-            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+            _creditRepoMock.Setup(r => r.LockCreditAsync("user123"))
                 .ReturnsAsync("mock-tx-123");
 
             var mockProposalResult = new ProposalResult
@@ -135,7 +140,7 @@ namespace Pharos.Core.Tests.Services
             _aiServiceMock.Setup(a => a.GenerateProposalAsync(cv, job))
                 .ThrowsAsync(new Exception("Original LLM error"));
 
-            _userRepoMock.Setup(r => r.ReleaseCreditLockAsync("user123"))
+            _creditRepoMock.Setup(r => r.ReleaseCreditLockAsync("user123"))
                 .ThrowsAsync(new Exception("Lock release db connection error"));
 
             // Act & Assert

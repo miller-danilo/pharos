@@ -9,13 +9,20 @@ namespace Pharos.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    public class AdminController(IUserRepository userRepository) : ControllerBase
+    public class AdminController(IConfigRepository configRepository) : ControllerBase
     {
         [HttpGet("multipliers")]
         public async Task<IActionResult> GetCostMultipliers()
         {
-            var multipliers = await userRepository.GetCostMultipliersAsync();
-            return Ok(multipliers);
+            try
+            {
+                var multipliers = await configRepository.GetCostMultipliersAsync();
+                return Ok(multipliers);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while retrieving cost multipliers.");
+            }
         }
 
         [HttpPost("multipliers")]
@@ -26,8 +33,15 @@ namespace Pharos.Api.Controllers
                 return BadRequest("Invalid cost multipliers request.");
             }
 
-            await userRepository.SaveCostMultipliersAsync(multipliers);
-            return Ok(new { message = "Cost multipliers updated successfully" });
+            try
+            {
+                await configRepository.SaveCostMultipliersAsync(multipliers);
+                return Ok(new { message = "Cost multipliers updated successfully" });
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "An error occurred while saving cost multipliers.");
+            }
         }
     }
 }
