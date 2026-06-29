@@ -111,11 +111,18 @@ Make sure all text fields are in Spanish, as Pharos primarily serves LatAm candi
             {
                 PropertyNameCaseInsensitive = true
             };
-            return JsonSerializer.Deserialize<JobAnalysisResult>(jsonText, options)
+            var result = JsonSerializer.Deserialize<JobAnalysisResult>(jsonText, options)
                    ?? throw new InvalidOperationException("Failed to deserialize job analysis result.");
+
+            if (geminiResponse?.UsageMetadata != null)
+            {
+                result.PromptTokens = geminiResponse.UsageMetadata.PromptTokenCount;
+                result.CompletionTokens = geminiResponse.UsageMetadata.CandidatesTokenCount;
+            }
+            return result;
         }
 
-        public async Task<string> GenerateProposalAsync(string cvText, string jobText)
+        public async Task<ProposalResult> GenerateProposalAsync(string cvText, string jobText)
         {
             if (string.IsNullOrEmpty(_apiKey))
             {
@@ -174,13 +181,36 @@ Guidelines:
                 throw new InvalidOperationException("Failed to generate cover letter from Gemini API.");
             }
 
-            return letter.Trim();
+            int promptTokens = geminiResponse?.UsageMetadata?.PromptTokenCount ?? 0;
+            int completionTokens = geminiResponse?.UsageMetadata?.CandidatesTokenCount ?? 0;
+
+            return new ProposalResult
+            {
+                ProposalText = letter.Trim(),
+                PromptTokens = promptTokens,
+                CompletionTokens = completionTokens
+            };
         }
 
         private class GeminiResponse
         {
             [JsonPropertyName("candidates")]
             public Candidate[]? Candidates { get; set; }
+
+            [JsonPropertyName("usageMetadata")]
+            public UsageMetadata? UsageMetadata { get; set; }
+        }
+
+        private class UsageMetadata
+        {
+            [JsonPropertyName("promptTokenCount")]
+            public int PromptTokenCount { get; set; }
+
+            [JsonPropertyName("candidatesTokenCount")]
+            public int CandidatesTokenCount { get; set; }
+
+            [JsonPropertyName("totalTokenCount")]
+            public int TotalTokenCount { get; set; }
         }
 
         private class Candidate

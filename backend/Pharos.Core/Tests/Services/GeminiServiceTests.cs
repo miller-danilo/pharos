@@ -55,7 +55,12 @@ namespace Pharos.Core.Tests.Services
                             ]
                         }
                     }
-                ]
+                ],
+                ""usageMetadata"": {
+                    ""promptTokenCount"": 100,
+                    ""candidatesTokenCount"": 50,
+                    ""totalTokenCount"": 150
+                }
             }";
 
             var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -108,7 +113,12 @@ namespace Pharos.Core.Tests.Services
                             ]
                         }
                     }
-                ]
+                ],
+                ""usageMetadata"": {
+                    ""promptTokenCount"": 200,
+                    ""candidatesTokenCount"": 100,
+                    ""totalTokenCount"": 300
+                }
             }";
 
             var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -133,7 +143,7 @@ namespace Pharos.Core.Tests.Services
             var result = await service.GenerateProposalAsync("CV text", "Job details");
 
             // Assert
-            Assert.Equal("Generated Cover Letter text", result);
+            Assert.Equal("Generated Cover Letter text", result.ProposalText);
         }
 
         [Fact]

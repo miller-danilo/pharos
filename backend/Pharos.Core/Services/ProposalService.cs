@@ -20,17 +20,17 @@ namespace Pharos.Core.Services
             }
 
             // Step 1: Lock credit (Lease / Lock)
-            await userRepo.LockCreditAsync(userId);
+            string transactionId = await userRepo.LockCreditAsync(userId);
 
             try
             {
                 // Step 2: Generate proposal from AI
-                string proposal = await aiService.GenerateProposalAsync(cvText, jobText);
+                var proposalResult = await aiService.GenerateProposalAsync(cvText, jobText);
 
                 // Step 3: Confirm credit deduction (Release lock - finalized!)
-                await userRepo.ConfirmCreditDeductionAsync(userId);
+                await userRepo.ConfirmCreditDeductionAsync(userId, transactionId, proposalResult.PromptTokens, proposalResult.CompletionTokens);
 
-                return proposal;
+                return proposalResult.ProposalText;
             }
             catch (Exception)
             {

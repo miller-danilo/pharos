@@ -99,9 +99,10 @@ namespace Pharos.Core.Services
             return 0;
         }
 
-        public async Task LockCreditAsync(string userId)
+        public async Task<string> LockCreditAsync(string userId)
         {
             DocumentReference userRef = _db.Collection(FirestoreConstants.Collections.Users).Document(userId);
+            string transactionId = string.Empty;
             
             await _db.RunTransactionAsync(async (Google.Cloud.Firestore.Transaction dbTransaction) =>
             {
@@ -121,8 +122,20 @@ namespace Pharos.Core.Services
                 
                 if (user.CreditLockedAt != null)
                 {
-                    // Lock is expired. Reuse the existing deduction, just refresh timestamp.
+                    // Lock is expired. Refresh timestamp.
                     dbTransaction.Update(userRef, "creditLockedAt", DateTime.UtcNow);
+                    
+                    DocumentReference txnRef = _db.Collection(FirestoreConstants.Collections.Transactions).Document();
+                    transactionId = txnRef.Id;
+                    var txn = new Pharos.Core.Models.Transaction
+                    {
+                        Id = txnRef.Id,
+                        UserId = userId,
+                        CreditsChanged = 0,
+                        Reason = FirestoreConstants.TransactionReasons.ProposalGeneration,
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    dbTransaction.Create(txnRef, txn);
                 }
                 else
                 {
@@ -136,6 +149,7 @@ namespace Pharos.Core.Services
                     dbTransaction.Update(userRef, "creditLockedAt", DateTime.UtcNow);
                     
                     DocumentReference txnRef = _db.Collection(FirestoreConstants.Collections.Transactions).Document();
+                    transactionId = txnRef.Id;
                     var txn = new Pharos.Core.Models.Transaction
                     {
                         Id = txnRef.Id,
@@ -147,12 +161,27 @@ namespace Pharos.Core.Services
                     dbTransaction.Create(txnRef, txn);
                 }
             });
+
+            return transactionId;
         }
 
-        public async Task ConfirmCreditDeductionAsync(string userId)
+        public async Task ConfirmCreditDeductionAsync(string userId, string transactionId, int promptTokens, int completionTokens)
         {
             DocumentReference userRef = _db.Collection(FirestoreConstants.Collections.Users).Document(userId);
             await userRef.UpdateAsync("creditLockedAt", null);
+
+            if (!string.IsNullOrEmpty(transactionId))
+            {
+                DocumentReference txnRef = _db.Collection(FirestoreConstants.Collections.Transactions).Document(transactionId);
+                var usage = new UsageTelemetry
+                {
+                    PromptTokens = promptTokens,
+                    CompletionTokens = completionTokens,
+                    DbReads = 2,
+                    DbWrites = 2
+                };
+                await txnRef.UpdateAsync("usage", usage);
+            }
         }
 
         public async Task ReleaseCreditLockAsync(string userId)
@@ -180,14 +209,21 @@ namespace Pharos.Core.Services
                         UserId = userId,
                         CreditsChanged = 1,
                         Reason = FirestoreConstants.TransactionReasons.ProposalGenerationRefund,
-                        CreatedAt = DateTime.UtcNow
+                        CreatedAt = DateTime.UtcNow,
+                        Usage = new UsageTelemetry
+                        {
+                            PromptTokens = 0,
+                            CompletionTokens = 0,
+                            DbReads = 2,
+                            DbWrites = 2
+                        }
                     };
                     dbTransaction.Create(txnRef, txn);
                 }
             });
         }
 
-        public async Task AddCreditsFromPaymentAsync(string userId, int amount, string paymentId)
+        public async Task AddCreditsFromPaymentAsync(string userId, int amount, string paymentId, decimal cost, string currency)
         {
             DocumentReference userRef = _db.Collection(FirestoreConstants.Collections.Users).Document(userId);
             
@@ -221,7 +257,15 @@ namespace Pharos.Core.Services
                     UserId = userId,
                     CreditsChanged = amount,
                     Reason = $"payment_purchase:{paymentId}",
-                    CreatedAt = DateTime.UtcNow
+                    CreatedAt = DateTime.UtcNow,
+                    Currency = currency,
+                    Usage = new UsageTelemetry
+                    {
+                        PromptTokens = 0,
+                        CompletionTokens = 0,
+                        DbReads = 1,
+                        DbWrites = 2
+                    }
                 };
                 dbTransaction.Create(txnRef, txn);
             });
@@ -275,6 +319,48 @@ namespace Pharos.Core.Services
                 scan.CreatedAt = DateTime.UtcNow;
                 await scanRef.SetAsync(scan);
             }
+        }
+
+        public async Task<List<Pharos.Core.Models.Transaction>> GetUserTransactionsAsync(string userId)
+        {
+            Query query = _db.Collection(FirestoreConstants.Collections.Transactions)
+                             .WhereEqualTo("userId", userId)
+                             .OrderByDescending("createdAt");
+            
+            QuerySnapshot snapshot = await query.GetSnapshotAsync();
+            var list = new List<Pharos.Core.Models.Transaction>();
+            foreach (DocumentSnapshot doc in snapshot.Documents)
+            {
+                if (doc.Exists)
+                {
+                    list.Add(doc.ConvertTo<Pharos.Core.Models.Transaction>());
+                }
+            }
+            return list;
+        }
+
+        public async Task LogTransactionAsync(Pharos.Core.Models.Transaction transaction)
+        {
+            DocumentReference txnRef = _db.Collection(FirestoreConstants.Collections.Transactions).Document();
+            transaction.Id = txnRef.Id;
+            await txnRef.SetAsync(transaction);
+        }
+
+        public async Task<CostMultipliers> GetCostMultipliersAsync()
+        {
+            DocumentReference docRef = _db.Collection("config").Document("cost_multipliers");
+            DocumentSnapshot snapshot = await docRef.GetSnapshotAsync();
+            if (snapshot.Exists)
+            {
+                return snapshot.ConvertTo<CostMultipliers>();
+            }
+            return new CostMultipliers();
+        }
+
+        public async Task SaveCostMultipliersAsync(CostMultipliers multipliers)
+        {
+            DocumentReference docRef = _db.Collection("config").Document("cost_multipliers");
+            await docRef.SetAsync(multipliers);
         }
     }
 }

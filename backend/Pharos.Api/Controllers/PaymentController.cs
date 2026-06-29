@@ -11,8 +11,7 @@ using System.Threading.Tasks;
 namespace Pharos.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
-    // C# 12 Primary Constructor
+    [Route("api/[controller]")]    
     public class PaymentController(IUserRepository userRepository, IConfiguration configuration) : ControllerBase
     {
         private readonly string _webhookSecret = configuration["LemonSqueezy:WebhookSecret"] 
@@ -72,7 +71,7 @@ namespace Pharos.Api.Controllers
                 var data = root.GetProperty("data");
                 string orderId = data.GetProperty("id").GetString() ?? Guid.NewGuid().ToString();
                 
-                int creditsQuantity = 10; // Fallback default
+                int creditsQuantity = 10; //TODO: Fallback default
 
                 var attributes = data.GetProperty("attributes");
                 if (attributes.TryGetProperty("first_order_item", out var firstOrderItem))
@@ -83,7 +82,30 @@ namespace Pharos.Api.Controllers
                     }
                 }
 
-                await userRepository.AddCreditsFromPaymentAsync(userId, creditsQuantity, orderId);
+                decimal cost = 0;
+                string currency = "USD";
+
+                if (attributes.TryGetProperty("subtotal", out var subtotalProp))
+                {
+                    if (subtotalProp.ValueKind == System.Text.Json.JsonValueKind.Number)
+                    {
+                        cost = subtotalProp.GetDecimal() / 100m;
+                    }
+                }
+                else if (attributes.TryGetProperty("total", out var totalProp))
+                {
+                    if (totalProp.ValueKind == System.Text.Json.JsonValueKind.Number)
+                    {
+                        cost = totalProp.GetDecimal() / 100m;
+                    }
+                }
+
+                if (attributes.TryGetProperty("currency", out var currencyProp))
+                {
+                    currency = currencyProp.GetString() ?? "USD";
+                }
+
+                await userRepository.AddCreditsFromPaymentAsync(userId, creditsQuantity, orderId, cost, currency);
 
                 return Ok(new { message = $"Credits successfully added. User: {userId}, Quantity: {creditsQuantity}" });
             }

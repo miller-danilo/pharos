@@ -1,0 +1,10 @@
+---
+import Layout from '../layouts/Layout.astro';
+import AdminDashboard from '../components/AdminDashboard.vue';
+---
+
+<Layout title="Pharos AI | Admin Cost Tuning Panel">
+	<div class="relative z-10 max-w-5xl mx-auto my-10 px-4">
+		<AdminDashboard client:load />
+	</div>
+</Layout>

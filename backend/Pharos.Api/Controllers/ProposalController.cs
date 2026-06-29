@@ -9,8 +9,7 @@ namespace Pharos.Api.Controllers
 {
     [ApiController]
     [Authorize]
-    [Route("api/[controller]")]
-    // C# 12 Primary Constructor
+    [Route("api/[controller]")]    
     public class ProposalController(IProposalService proposalService) : ControllerBase
     {
         [HttpPost("generate")]

@@ -6,6 +6,7 @@ using Pharos.Core.Models;
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,7 @@ namespace Pharos.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    // C# 12 Primary Constructor
-    public class ShieldController(IAiService aiService, IScanRepository scanRepository) : ControllerBase
+    public class ShieldController(IAiService aiService, IScanRepository scanRepository, IUserRepository userRepo) : ControllerBase
     {
         [HttpPost("analyze")]
         [EnableRateLimiting("PublicScanPolicy")]
@@ -29,7 +29,7 @@ namespace Pharos.Api.Controllers
                 }
                 catch
                 {
-                    // Fallback to bad request
+                    //TODO: Fallback to bad request
                 }
             }
 
@@ -81,6 +81,29 @@ namespace Pharos.Api.Controllers
                     CreatedAt = DateTime.UtcNow
                 };
                 await scanRepository.SaveScanAsync(scan);
+
+                // Log raw usage details (0 credits cost)
+                string userId = User.GetUserId();
+                if (string.IsNullOrEmpty(userId))
+                {
+                    userId = "anonymous";
+                }
+
+                var txn = new Transaction
+                {
+                    UserId = userId,
+                    CreditsChanged = 0,
+                    Reason = "job_safety_scan",
+                    CreatedAt = DateTime.UtcNow,
+                    Usage = new UsageTelemetry
+                    {
+                        PromptTokens = result.PromptTokens,
+                        CompletionTokens = result.CompletionTokens,
+                        DbReads = 1,
+                        DbWrites = 1
+                    }
+                };
+                _ = userRepo.LogTransactionAsync(txn);
 
                 return Ok(result);
             }

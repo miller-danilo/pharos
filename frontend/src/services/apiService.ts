@@ -49,3 +49,42 @@ export async function generateProposal(token: string, jobText: string, cvText: s
 
   return response.json();
 }
+
+export async function fetchUserTransactions(token: string) {
+  const response = await fetch(`${API_BASE_URL}/api/user/transactions`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if (!response.ok) {
+    throw new Error('Failed to load transactions.');
+  }
+  return response.json();
+}
+
+export async function fetchCostMultipliers(token: string) {
+  const response = await fetch(`${API_BASE_URL}/api/admin/multipliers`, {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  if (!response.ok) {
+    throw new Error('Failed to load cost multipliers.');
+  }
+  return response.json();
+}
+
+export async function saveCostMultipliers(token: string, multipliers: any) {
+  const response = await fetch(`${API_BASE_URL}/api/admin/multipliers`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(multipliers)
+  });
+  if (!response.ok) {
+    throw new Error('Failed to save cost multipliers.');
+  }
+  return response.json();
+}

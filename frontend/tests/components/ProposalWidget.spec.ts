@@ -29,7 +29,28 @@ vi.mock('../../src/composables/useAuth', () => ({
 vi.mock('../../src/services/apiService', () => ({
   fetchUserProfile: vi.fn().mockResolvedValue({ credits: 5, cvText: 'My CV' }),
   saveUserCv: vi.fn().mockResolvedValue({ message: 'CV saved' }),
-  generateProposal: vi.fn().mockResolvedValue({ proposal: 'Cover Letter text' })
+  generateProposal: vi.fn().mockResolvedValue({ proposal: 'Cover Letter text' }),
+  fetchUserTransactions: vi.fn().mockResolvedValue([
+    {
+      id: 'tx_1',
+      createdAt: '2026-06-29T12:00:00Z',
+      reason: 'welcome_balance',
+      creditsChanged: 3,
+      usage: null
+    },
+    {
+      id: 'tx_2',
+      createdAt: '2026-06-29T12:10:00Z',
+      reason: 'proposal_generation',
+      creditsChanged: -1,
+      usage: {
+        promptTokens: 100,
+        completionTokens: 50,
+        dbReads: 2,
+        dbWrites: 2
+      }
+    }
+  ])
 }));
 
 describe('ProposalWidget.vue', () => {

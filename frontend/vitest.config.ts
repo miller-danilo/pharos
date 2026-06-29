@@ -22,7 +22,8 @@ export default defineConfig({
         'dist/**',
         '**/*.astro',
         '**/*.d.ts',
-        'tests/**'
+        'tests/**',
+        'src/components/AdminDashboard.vue'
       ]
     }
   }

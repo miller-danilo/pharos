@@ -44,8 +44,18 @@ namespace Pharos.Core.Tests.Services
             _userRepoMock.Setup(r => r.GetUserCvAsync("user123"))
                 .ReturnsAsync(cv);
 
+            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+                .ReturnsAsync("mock-tx-123");
+
+            var mockProposalResult = new ProposalResult
+            {
+                ProposalText = generatedProposal,
+                PromptTokens = 100,
+                CompletionTokens = 50
+            };
+
             _aiServiceMock.Setup(a => a.GenerateProposalAsync(cv, job))
-                .ReturnsAsync(generatedProposal);
+                .ReturnsAsync(mockProposalResult);
 
             // Act
             var result = await _service.GenerateProposalWithCreditControlAsync("user123", "", job);
@@ -54,7 +64,7 @@ namespace Pharos.Core.Tests.Services
             Assert.Equal(generatedProposal, result);
             _userRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
             _aiServiceMock.Verify(a => a.GenerateProposalAsync(cv, job), Times.Once);
-            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123"), Times.Once);
+            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", "mock-tx-123", 100, 50), Times.Once);
             _userRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Never);
         }
 
@@ -68,6 +78,9 @@ namespace Pharos.Core.Tests.Services
             _userRepoMock.Setup(r => r.GetUserCvAsync("user123"))
                 .ReturnsAsync(cv);
 
+            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+                .ReturnsAsync("mock-tx-123");
+
             _aiServiceMock.Setup(a => a.GenerateProposalAsync(cv, job))
                 .ThrowsAsync(new Exception("Gemini API connection error"));
 
@@ -76,7 +89,7 @@ namespace Pharos.Core.Tests.Services
                 _service.GenerateProposalWithCreditControlAsync("user123", "", job));
 
             _userRepoMock.Verify(r => r.LockCreditAsync("user123"), Times.Once);
-            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123"), Times.Never);
+            _userRepoMock.Verify(r => r.ConfirmCreditDeductionAsync("user123", It.IsAny<string>(), It.IsAny<int>(), It.IsAny<int>()), Times.Never);
             _userRepoMock.Verify(r => r.ReleaseCreditLockAsync("user123"), Times.Once);
         }
 
@@ -88,8 +101,18 @@ namespace Pharos.Core.Tests.Services
             string job = "Lead C# Dev";
             string generatedProposal = "Dear Lead Developer...";
 
+            _userRepoMock.Setup(r => r.LockCreditAsync("user123"))
+                .ReturnsAsync("mock-tx-123");
+
+            var mockProposalResult = new ProposalResult
+            {
+                ProposalText = generatedProposal,
+                PromptTokens = 100,
+                CompletionTokens = 50
+            };
+
             _aiServiceMock.Setup(a => a.GenerateProposalAsync(cv, job))
-                .ReturnsAsync(generatedProposal);
+                .ReturnsAsync(mockProposalResult);
 
             // Act
             var result = await _service.GenerateProposalWithCreditControlAsync("user123", cv, job);

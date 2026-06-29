@@ -11,6 +11,8 @@ namespace Pharos.Core.Models
         public string Summary { get; set; } = string.Empty;
         public string Reasoning { get; set; } = string.Empty;
         public List<AnalysisFactor> Factors { get; set; } = new();
+        public int PromptTokens { get; set; }
+        public int CompletionTokens { get; set; }
     }
 
     [ExcludeFromCodeCoverage]

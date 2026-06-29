@@ -36,7 +36,7 @@ namespace Pharos.Core.Services
             return Task.FromResult(mockResult);
         }
 
-        public Task<string> GenerateProposalAsync(string cvText, string jobText)
+        public Task<ProposalResult> GenerateProposalAsync(string cvText, string jobText)
         {
             string mockProposal = @"# Carta de Presentación Simulada (Local Mock)
 
@@ -51,7 +51,14 @@ Esta es una propuesta y carta de presentación simulada generada localmente por 
 Saludos cordiales,
 El equipo de Pharos (Simulación)";
 
-            return Task.FromResult(mockProposal);
+            var result = new ProposalResult
+            {
+                ProposalText = mockProposal,
+                PromptTokens = 500,
+                CompletionTokens = 250
+            };
+
+            return Task.FromResult(result);
         }
     }
 }

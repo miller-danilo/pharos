@@ -9,7 +9,6 @@ namespace Pharos.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("api/[controller]")]
-    // C# 12 Primary Constructor
     public class UserController(IUserRepository userRepository) : ControllerBase
     {
         [HttpGet("profile")]
@@ -25,6 +24,20 @@ namespace Pharos.Api.Controllers
 
             var user = await userRepository.GetOrCreateUserAsync(userId, email);
             return Ok(user);
+        }
+
+        [HttpGet("transactions")]
+        public async Task<IActionResult> GetTransactions()
+        {
+            string userId = User.GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var transactions = await userRepository.GetUserTransactionsAsync(userId);
+            return Ok(transactions);
         }
 
         [HttpPost("cv")]
